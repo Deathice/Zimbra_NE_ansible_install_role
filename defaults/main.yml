@@ -1,0 +1,23 @@
+---
+tg: false
+prompt: false
+install_license01: y
+install_license02: y
+install_repo: y
+install_zldap: y
+install_zlogger: y
+install_zmta: y
+install_zdnscache: n
+install_zsnmp: y
+install_zstore: y
+install_zapache: y
+install_zspell: y
+install_zconvertd: y
+install_zmemcached: y
+install_zproxy: y
+install_zarchiving: y
+install_zchat: y
+install_zdrive: n
+install_zimapd: n
+znet_module_ng: y
+install_zmodified: y
