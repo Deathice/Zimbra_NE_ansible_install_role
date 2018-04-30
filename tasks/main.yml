@@ -21,7 +21,7 @@
   when:
     - prompt
 
-- name: Download Zimbra package
+- name: Response vars
   block:
     - name: repo
       pause:
@@ -162,27 +162,19 @@
       pause:
         prompt: "Install zimbra-imapd (BETA - for evaluation only) [y/N]"
       register: install_package
-      when:
-        - zim_short_vs == "8.8"
 
     - name: setting zimapd var
       set_fact:
         install_zimapd: "{{ install_package.user_input }}"
-      when:
-        - zim_short_vs == "8.8"
 
     - name: znet_module_ng
       pause:
         prompt: "Install zimbra-imapd (BETA - for evaluation only) [y/N]"
       register: install_package
-      when:
-        - zim_short_vs == "8.8"
 
     - name: setting zimapd var
       set_fact:
         install_znet_module_ng: "{{ install_package.user_input }}"
-      when:
-        - zim_short_vs == "8.8"
 
     - name: zmodified
       pause:
