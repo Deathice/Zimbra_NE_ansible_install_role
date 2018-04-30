@@ -1,6 +1,6 @@
 Zimbra_ansible_install_role
 =========
-Install Zimbra Network Edition 8.7 or 8.8 with ansible. You will install with two forms:
+Install Zimbra Network Edition 8.8 with ansible. You will install with two forms:
 
 - Default
 - Using prompt variable with true value. (e.g. -e prompt=true)
@@ -20,7 +20,6 @@ Edit the variables into vars/main.yml file with:
 - srv_hostname: 'fqdn of your machine'
 - zim_url: URL for download the zimbra compress file.
 - zim_unarchive: This name will be generate automatically from zim_url variable
-- zim_short_vs: This variable is used for validate zimbra version
 - ip_client: Server IP
 - ip_dns: DNS Server IP
 
