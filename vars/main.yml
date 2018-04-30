@@ -1,10 +1,9 @@
 ---
-srv_hostname: 'mail.zne.com.gt'
-zim_url: https://files.zimbra.com/downloads/8.8.8_GA/zcs-NETWORK-8.8.8_GA_2009.RHEL7_64.20180322150747.tgz
+srv_hostname: ''
+zim_url: 
 zim_unarchive: "{{ zim_url |regex_search('(zcs.*[0-9])')}}" 
-zim_short_vs: "{{ zim_url |urlsplit('path') |regex_search('(8.8)') }}"
-ip_client: 192.168.13.242
-ip_dns: 192.168.13.253
+ip_client: 
+ip_dns: 
 token_id: ''
 chatid: ''
 zim_ports:
