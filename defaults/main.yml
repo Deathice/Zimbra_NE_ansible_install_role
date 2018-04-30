@@ -19,5 +19,5 @@ install_zarchiving: y
 install_zchat: y
 install_zdrive: n
 install_zimapd: n
-znet_module_ng: y
+znet_module_ng: n
 install_zmodified: y
