@@ -414,6 +414,19 @@
 
     - name: Change to zimbra user and execute zmcontrol restart
       shell: su - zimbra -c 'zmcontrol restart'
+      register: zmcontrol_status
+      ignore_errors: true
+
+    - name: Delete zmconfigdctl.pid file
+      file:
+        path: "{{ zmconfigd_file }}"
+        state: absent
+      when: zmcontrol_status.failed
+
+    - name: Restart zimbra services
+      command: su - zimbra -c 'zmcontrol restart'
+      when: zmcontrol_status.failed
+
   when:
     - ansible_os_family == 'RedHat'
     - ansible_distribution_major_version == '7'
