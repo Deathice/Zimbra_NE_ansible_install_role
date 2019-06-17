@@ -16,8 +16,8 @@ install_zconvertd: y
 install_zmemcached: y
 install_zproxy: y
 install_zarchiving: y
-install_zchat: y
 install_zdrive: n
 install_zimapd: n
 znet_module_ng: n
+install_zchat: y
 install_zmodified: y

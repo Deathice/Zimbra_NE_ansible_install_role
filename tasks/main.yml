@@ -21,7 +21,7 @@
   when:
     - prompt
 
-- name: Response vars
+- name: Response vars # change order for this section
   block:
     - name: repo
       pause:
@@ -140,15 +140,6 @@
       set_fact:
         install_zarchiving: "{{ install_package.user_input }}"
 
-    - name: zchat
-      pause:
-        prompt: "Install zimbra-chat [Y/n]"
-      register: install_package
-
-    - name: setting zchat var
-      set_fact:
-        install_zchat: "{{ install_package.user_input }}"
-
     - name: zdrive
       pause:
         prompt: "Install zimbra-drive [Y/n]"
@@ -172,9 +163,18 @@
         prompt: "Install zimbra-imapd (BETA - for evaluation only) [y/N]"
       register: install_package
 
-    - name: setting zimapd var
+    - name: setting znet_module_ng var
       set_fact:
         install_znet_module_ng: "{{ install_package.user_input }}"
+
+    - name: zchat
+      pause:
+        prompt: "Install zimbra-chat [Y/n]"
+      register: install_package
+
+    - name: setting zchat var
+      set_fact:
+        install_zchat: "{{ install_package.user_input }}"
 
     - name: zmodified
       pause:
@@ -291,16 +291,8 @@
 
     - name: Installing packages
       yum:
-        name: "{{ item }}"
+        name: "{{ zim_packages }}"
         state: latest
-      with_items:
-        - 'perl'
-        - 'net-tools'
-        - 'nmap-ncat'
-        - 'dnsmasq'
-        - 'libselinux-python'
-        - 'firewalld'
-        - 'bind-utils'
 
     - name: System update
       yum:
