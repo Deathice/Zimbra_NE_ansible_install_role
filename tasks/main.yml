@@ -196,6 +196,25 @@
         path: /tmp/zcs
         state: directory
 
+    - name: Getting checksum zimbra file
+      get_url:
+        url: "{{ zim_url }}.md5"
+        dest: /tmp/zcs
+
+    - name: Validate if zimbra file exist into remote server
+      stat:
+        path: "/tmp/zcs/{{ zim_unarchive }}.tgz"
+      register: zimbra_file
+
+    - name: Validate if zimbra file exist into ansible controller
+      find:
+        paths: "{{ playbook_dir }}"
+        patterns: '*.tgz'
+        recurse: true
+      register: zimbra_controller_file
+      delegate_to: localhost
+      when: not zimbra_file.stat.exists
+
     - name: Copy zimbra file
       copy:
         src: "{{ zim_unarchive }}.tgz"
@@ -370,7 +389,16 @@
       register: dw_status
       until: dw_status.finished
       retries: 980
-      when: zim_file_status.failed
+      when: dw_status.changed
+      tags:
+        - prepare
+
+    - name: Validating Checksum
+      shell: /usr/bin/md5sum -c /tmp/zcs/{{ zim_unarchive }}.tgz.md5
+      args:
+        chdir: /tmp/zcs
+      register: checksum_file
+      when: dw_status is defined
 
     - name: Disable and stop postfix
       service:
