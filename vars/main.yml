@@ -5,4 +5,4 @@ ip_client:
 ip_dns: 
 token_id: ''
 chatid: ''
-time_zone: America/Guatemala
+timezone: America/Guatemala
