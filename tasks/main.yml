@@ -317,7 +317,7 @@
         dest: /etc/dnsmasq.conf
         owner: root
         group: root
-        mode: 644
+        mode: 0644
 
     - name: Copy ifcfg-interface template
       template:
@@ -384,7 +384,7 @@
         dest: /etc/dnsmasq.conf
         owner: root
         group: root
-        mode: 644
+        mode: 0644
   when:
     - install_zmodified == 'y' or install_zmodified == 'Y'
     - install_license01 == 'Y' or install_license01 == 'y'
