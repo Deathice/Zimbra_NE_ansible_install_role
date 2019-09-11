@@ -337,12 +337,12 @@
     - name: Installing packages
       yum:
         name: "{{ zim_packages }}"
-        state: latest
+        state: present
 
     - name: System update
       yum:
         name: '*'
-        state: latest
+        state: present
 
     - name: Copying license file
       copy:
