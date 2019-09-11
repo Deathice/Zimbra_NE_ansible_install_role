@@ -1,33 +1,8 @@
 ---
 srv_hostname: ''
-zim_url: 
-zim_unarchive: "{{ zim_url |regex_search('(zcs.*[0-9])')}}" 
+zim_url: https://files.zimbra.com/downloads/8.8.15_GA/zcs-NETWORK-8.8.15_GA_3829.RHEL7_64.20190718141144.tgz
 ip_client: 
 ip_dns: 
 token_id: ''
 chatid: ''
-zim_ports:
-  - '25/tcp'
-  - '80/tcp'
-  - '110/tcp'
-  - '143/tcp'
-  - '443/tcp'
-  - '465/tcp'
-  - '587/tcp'
-  - '993/tcp'
-  - '995/tcp'
-  - '3443/tcp'
-  - '5222/tcp'
-  - '5223/tcp'
-  - '9071/tcp'
-  - '7071/tcp'
-  - '8443/tcp'
-zim_packages:
-  - 'perl'
-  - 'net-tools'
-  - 'nmap-ncat'
-  - 'dnsmasq'
-  - 'libselinux-python'
-  - 'firewalld'
-  - 'bind-utils'
 time_zone: America/Guatemala

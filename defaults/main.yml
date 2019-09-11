@@ -21,3 +21,28 @@ install_zimapd: n
 znet_module_ng: n
 install_zchat: y
 install_zmodified: y
+zim_unarchive: "{{ zim_url |regex_search('(zcs.*[0-9])')}}"
+zim_ports:
+  - '25/tcp'
+  - '80/tcp'
+  - '110/tcp'
+  - '143/tcp'
+  - '443/tcp'
+  - '465/tcp'
+  - '587/tcp'
+  - '993/tcp'
+  - '995/tcp'
+  - '3443/tcp'
+  - '5222/tcp'
+  - '5223/tcp'
+  - '9071/tcp'
+  - '7071/tcp'
+  - '8443/tcp'
+zim_packages:
+  - 'perl'
+  - 'net-tools'
+  - 'nmap-ncat'
+  - 'dnsmasq'
+  - 'libselinux-python'
+  - 'firewalld'
+  - 'bind-utils'
