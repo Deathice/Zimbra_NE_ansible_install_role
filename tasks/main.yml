@@ -233,10 +233,10 @@
       get_url:
         url: "{{ zim_url |mandatory }}"
         dest: /tmp/zcs
-        async: 3600
-        poll: 0
-        register: dw_file
-        when: not zimbra_file.stat.exists
+      async: 3600
+      poll: 0
+      register: dw_file
+      when: not zimbra_file.stat.exists
 
     - name: Validating Checksum
       shell: /usr/bin/md5sum -c /tmp/zcs/{{ zim_unarchive }}.tgz.md5
@@ -322,6 +322,10 @@
 
 - name: Manipulating files, packages and services
   block:
+    - name: Setting timezone for server
+      timezone:
+        name: "{{ timezone }}"
+
     - name: Setting admin password
       copy:
         content: "zimbra_pass: {{ pass_config }}"
@@ -474,7 +478,7 @@
       when: zmcontrol_status.failed
 
     - name: Restart zimbra services
-      command: su - zimbra -c 'zmcontrol restart'
+      shell: su - zimbra -c 'zmcontrol restart'
       when: zmcontrol_status.failed
 
   when:
