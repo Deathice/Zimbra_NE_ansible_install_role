@@ -1,8 +1,49 @@
 ---
-srv_hostname: ''
-zim_url: https://files.zimbra.com/downloads/8.8.15_GA/zcs-NETWORK-8.8.15_GA_3829.RHEL7_64.20190718141144.tgz
-ip_client: 
-ip_dns: 
-token_id: ''
-chatid: ''
-timezone: America/Guatemala
+tg: false
+prompt: false
+install_license01: y
+install_license02: y
+install_repo: y
+install_zldap: y
+install_zlogger: y
+install_zmta: y
+install_zdnscache: n
+install_zsnmp: y
+install_zstore: y
+install_zapache: y
+install_zspell: y
+install_zconvertd: y
+install_zmemcached: y
+install_zproxy: y
+install_zarchiving: y
+install_zdrive: n
+install_zimapd: n
+znet_module_ng: n
+install_zchat: y
+install_zmodified: y
+zim_unarchive: "{{ zim_url |regex_search('(zcs.*[0-9])')}}"
+zim_ports:
+  - '25/tcp'
+  - '80/tcp'
+  - '110/tcp'
+  - '143/tcp'
+  - '443/tcp'
+  - '465/tcp'
+  - '587/tcp'
+  - '993/tcp'
+  - '995/tcp'
+  - '3443/tcp'
+  - '5222/tcp'
+  - '5223/tcp'
+  - '9071/tcp'
+  - '7071/tcp'
+  - '8443/tcp'
+zim_packages:
+  - 'perl'
+  - 'net-tools'
+  - 'nmap-ncat'
+  - 'dnsmasq'
+  - 'libselinux-python'
+  - 'firewalld'
+  - 'bind-utils'
+zmconfigd_file: /opt/zimbra/log/zmconfigd.pid
