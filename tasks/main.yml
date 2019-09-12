@@ -20,6 +20,7 @@
         install_license02: "{{ install_package.user_input }}"
   when:
     - prompt
+  tags: prepare
 
 - name: Response vars # change order for this section
   block:
@@ -188,6 +189,7 @@
     - prompt
     - install_license01 == 'Y' or install_license01 == 'y'
     - install_license02 == 'Y' or install_license02 == 'y'
+  tags: prepare
 
 - name: Download Zimbra package
   block:
@@ -264,6 +266,7 @@
     - install_zmodified == 'y' or install_zmodified == 'Y'
     - install_license01 == 'Y' or install_license01 == 'y'
     - install_license02 == 'Y' or install_license02 == 'y'
+  tags: prepare
 
 - name: Generating variables
   block:
@@ -327,6 +330,7 @@
     - install_zmodified == 'y' or install_zmodified == 'Y'
     - install_license01 == 'Y' or install_license01 == 'y'
     - install_license02 == 'Y' or install_license02 == 'y'
+  tags: prepare
 
 - name: Manipulating files, packages and services
   block:
@@ -346,23 +350,27 @@
       yum:
         name: "{{ zim_packages }}"
         state: present
+      tags: prepare
 
     - name: System update
       yum:
         name: '*'
         state: present
+      tags: prepare
 
     - name: Copying license file
       copy:
         src: ZCSLicense.xml
         dest: /tmp/ZCSLicense.xml
       register: zlicense
+      tags: prepare
 
     - name: Moving dnsmasq to .original
       copy:
         remote_src: true
         src: /etc/dnsmasq.conf
         dest: /etc/dnsmasq.conf.original
+      tags: prepare
 
     - name: Configure dnsmasq
       template:
@@ -371,6 +379,7 @@
         owner: root
         group: root
         mode: 0644
+      tags: prepare
 
     - name: Copy ifcfg-interface template
       template:
@@ -379,28 +388,33 @@
         owner: root
         group: root
         mode: 0644
+      tags: prepare
 
     - name: Start and enable dnsmasq service
       service:
         name: dnsmasq
         state: restarted
         enabled: true
+      tags: prepare
 
     - name: Start and enable firewalld service
       service:
         name: firewalld
         state: restarted
         enabled: true
+      tags: prepare
 
     - name: Copy config script zimbra file
       template:
         src: 'installZimbraScript.j2'
         dest: /tmp/zcs/installZimbraScript
+      tags: prepare
 
     - name: Copy config script keystrokes file
       template:
         src: 'installZimbra-keystrokes.j2'
         dest: /tmp/zcs/installZimbra-keystrokes
+      tags: prepare
 
     - name: Download response file
       fetch:
@@ -416,8 +430,7 @@
       until: dw_status.finished
       retries: 980
       when: not zimbra_file.stat.exists
-      tags:
-        - prepare
+      tags: prepare
 
     - name: Validating Checksum
       shell: /usr/bin/md5sum -c /tmp/zcs/{{ zim_unarchive }}.tgz.md5
@@ -431,6 +444,7 @@
         name: postfix
         state: stopped
         enabled: False
+      tags: prepare
 
     - name: Configure dnsmasq
       template:
@@ -439,6 +453,7 @@
         owner: root
         group: root
         mode: 0644
+      tags: prepare
   when:
     - install_zmodified == 'y' or install_zmodified == 'Y'
     - install_license01 == 'Y' or install_license01 == 'y'
@@ -457,6 +472,7 @@
         src: /tmp/zcs/{{ zim_unarchive }}.tgz
         dest: /tmp/zcs
         remote_src: true
+      tags: prepare
 
     - name: Installing Zimbra NE, just the Software
       shell: ./install.sh -l /tmp/ZCSLicense.xml -s < /tmp/zcs/installZimbra-keystrokes
@@ -503,6 +519,7 @@
     - install_zmodified == 'y' or install_zmodified == 'Y'
     - install_license01 == 'Y' or install_license01 == 'y'
     - install_license02 == 'Y' or install_license02 == 'y'
+  tags: prepare
 
 - name: Notifiying to user in charge
   block:
